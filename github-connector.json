@@ -1,0 +1,20 @@
+{
+  "name" : "MyGitHubConnector",
+  "config" :
+  {
+    "connector.class" : "io.confluent.connect.github.GithubSourceConnector",
+    "confluent.topic.bootstrap.servers": "kafka:9071",
+    "confluent.topic.replication.factor": "1",
+    "confluent.topic.sasl.jaas.config": "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"${file:/mnt/secrets/global_sasl_plain_username:username}\" password=\"${file:/mnt/secrets/global_sasl_plain_password:password}\";",
+    "confluent.topic.sasl.mechanism": "PLAIN",
+    "confluent.topic.security.protocol": "SASL_PLAINTEXT",
+    "tasks.max" : "1",
+    "github.service.url":"https://api.github.com",
+    "github.access.token":"${file:/vault/secrets/database-config.txt:accesstoken}",
+    "github.repositories":"janedeng/testconnect",
+    "github.tables":"commits",
+    "topic.name.pattern":"github-${entityName}"
+  }
+}
+
+
